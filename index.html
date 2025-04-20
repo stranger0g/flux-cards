@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FluxCards - Advanced Flashcards</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"> <!-- Font Awesome for icons -->
+</head>
+<body class="light-mode">
+
+    <div class="app-container">
+        <!-- Header / Controls -->
+        <header class="app-header">
+            <h1><i class="fas fa-brain"></i> FluxCards</h1>
+            <div class="controls">
+                <button id="theme-toggle-btn" title="Toggle Theme"><i class="fas fa-adjust"></i></button>
+                <button id="add-deck-btn" title="Add New Deck"><i class="fas fa-plus-square"></i> New Deck</button>
+            </div>
+        </header>
+
+        <!-- Main Content Area -->
+        <main class="main-content">
+            <!-- Deck Selection Sidebar -->
+            <aside class="deck-sidebar">
+                <h2>Decks</h2>
+                <ul id="deck-list">
+                    <!-- Deck items will be populated by JS -->
+                </ul>
+            </aside>
+
+            <!-- Study Area / Deck View -->
+            <section class="study-area">
+                <div id="welcome-screen" class="content-screen active">
+                    <h2>Welcome to FluxCards!</h2>
+                    <p>Select a deck from the left to start studying, or create a new deck.</p>
+                </div>
+
+                <div id="deck-view-screen" class="content-screen">
+                    <div class="deck-header">
+                        <h2 id="current-deck-name"></h2>
+                        <div class="deck-controls">
+                            <button id="start-study-btn" title="Study this Deck"><i class="fas fa-play-circle"></i> Study</button>
+                            <button id="add-card-to-deck-btn" title="Add Card"><i class="fas fa-plus"></i> Add Card</button>
+                            <button id="edit-deck-btn" title="Edit Deck Name"><i class="fas fa-edit"></i> Edit</button>
+                            <button id="delete-deck-btn" title="Delete Deck"><i class="fas fa-trash"></i> Delete</button>
+                        </div>
+                    </div>
+                    <div class="card-list-controls">
+                        <input type="text" id="card-filter-input" placeholder="Filter cards...">
+                        <span id="card-count">0 cards</span>
+                    </div>
+                    <div class="card-list-container">
+                        <ul id="deck-card-list">
+                            <!-- Card list for the selected deck -->
+                        </ul>
+                    </div>
+                </div>
+
+                <div id="study-screen" class="content-screen">
+                    <div class="study-header">
+                        <button id="back-to-deck-btn" title="Back to Deck View"><i class="fas fa-arrow-left"></i> Deck</button>
+                        <h2 id="study-deck-name">Studying: </h2>
+                        <div class="progress-container">
+                            <span>Progress:</span>
+                            <progress id="study-progress" max="100" value="0"></progress>
+                            <span id="progress-text">0/0</span>
+                        </div>
+                    </div>
+                    <div class="flashcard-container">
+                        <div class="flashcard" id="flashcard">
+                            <div class="flashcard-inner">
+                                <div class="flashcard-front">
+                                    <p id="card-front-text"></p>
+                                </div>
+                                <div class="flashcard-back">
+                                    <p id="card-back-text"></p>
+                                    <div class="difficulty-buttons">
+                                        <button class="difficulty-btn hard" data-difficulty="hard"><i class="fas fa-times-circle"></i> Hard (Again Soon)</button>
+                                        <button class="difficulty-btn good" data-difficulty="good"><i class="fas fa-check-circle"></i> Good (Later)</button>
+                                        <button class="difficulty-btn easy" data-difficulty="easy"><i class="fas fa-star"></i> Easy (Much Later)</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="study-controls">
+                        <button id="show-answer-btn">Show Answer</button>
+                    </div>
+                     <div id="study-complete-message" style="display: none; text-align: center; margin-top: 20px;">
+                        <h3><i class="fas fa-check-double"></i> Session Complete!</h3>
+                        <p>You've reviewed all due cards for this session.</p>
+                        <button id="study-again-btn">Study Again</button>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <!-- Modals -->
+    <div id="deck-modal" class="modal">
+        <div class="modal-content">
+            <span class="close-btn" data-modal-id="deck-modal">×</span>
+            <h3 id="deck-modal-title">Add New Deck</h3>
+            <input type="text" id="deck-name-input" placeholder="Deck Name">
+            <input type="hidden" id="edit-deck-id">
+            <button id="save-deck-btn">Save Deck</button>
+        </div>
+    </div>
+
+    <div id="card-modal" class="modal">
+        <div class="modal-content">
+            <span class="close-btn" data-modal-id="card-modal">×</span>
+            <h3 id="card-modal-title">Add New Card</h3>
+            <textarea id="card-front-input" placeholder="Card Front"></textarea>
+            <textarea id="card-back-input" placeholder="Card Back"></textarea>
+            <input type="hidden" id="edit-card-id">
+            <button id="save-card-btn">Save Card</button>
+        </div>
+    </div>
+
+    <!-- Confirmation Modal -->
+     <div id="confirm-modal" class="modal">
+        <div class="modal-content">
+            <h3 id="confirm-modal-title">Are you sure?</h3>
+            <p id="confirm-modal-text"></p>
+            <div class="confirm-buttons">
+                 <button id="confirm-yes-btn">Yes</button>
+                 <button id="confirm-no-btn">No</button>
+            </div>
+        </div>
+    </div>
+
+
+    <script src="script.js"></script>
+</body>
+</html>
